@@ -110,7 +110,9 @@ export function useTodos(user, selectedDate) {
 
   async function moveTodo(todoId, date) {
     const updatedTodo = await runOperation(`move-${todoId}`, () =>
-      updateTodo(todoId, { dueDate: new Date(`${date}T00:00:00`).toISOString() }),
+      // Date-only values must be interpreted as UTC midnight. Parsing them as
+      // local midnight shifts the calendar date in time zones east of UTC.
+      updateTodo(todoId, { dueDate: new Date(`${date}T00:00:00.000Z`).toISOString() }),
     );
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== updatedTodo.id));
   }

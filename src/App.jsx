@@ -10,7 +10,12 @@ import { useTelegram } from "./hooks/useTelegram";
 import { useTelegramTheme } from "./hooks/useTelegramTheme";
 import { useTodos } from "./hooks/useTodos";
 
-const inputDate = (date) => date.toISOString().slice(0, 10);
+const inputDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 function App() {
   const { webApp, user, isTelegram } = useTelegram();
