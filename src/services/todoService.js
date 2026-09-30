@@ -37,3 +37,12 @@ export async function completeTodo(todoId) {
 
   return response.data.data;
 }
+
+export async function updateTodo(todoId, data) {
+  const response = await api.put(`/todo/${todoId}`, data);
+  return response.data.data;
+}
+
+export async function deleteTodo(todoId) {
+  await api.delete(`/todo/${todoId}`);
+}

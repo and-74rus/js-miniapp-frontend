@@ -1,9 +1,9 @@
-function CloseButton({ webApp }) {
-  if (!webApp) {
-    return null;
-  }
+import Icon from "./Icon";
 
-  return <button onClick={() => webApp.close()}>Закрыть приложение</button>;
+function CloseButton({ webApp }) {
+  if (!webApp) return null;
+
+  return <button className="close-button" onClick={() => webApp.close()} aria-label="Закрыть приложение" title="Закрыть приложение"><Icon name="close" /></button>;
 }
 
 export default CloseButton;

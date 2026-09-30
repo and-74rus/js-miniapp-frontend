@@ -4,6 +4,7 @@ export function useTelegramTheme(webApp) {
   const [colorScheme, setColorScheme] = useState(() => {
     return webApp?.colorScheme || "light";
   });
+  const [themeParams, setThemeParams] = useState(() => webApp?.themeParams || {});
 
   useEffect(() => {
     if (!webApp) {
@@ -12,6 +13,7 @@ export function useTelegramTheme(webApp) {
 
     function handleThemeChanged() {
       setColorScheme(webApp.colorScheme || "light");
+      setThemeParams(webApp.themeParams || {});
     }
 
     webApp.onEvent("themeChanged", handleThemeChanged);
@@ -22,8 +24,6 @@ export function useTelegramTheme(webApp) {
       }
     };
   }, [webApp]);
-
-  const themeParams = webApp?.themeParams || {};
 
   return {
     colorScheme,

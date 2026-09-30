@@ -1,201 +1,80 @@
-:root {
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  color: #000000;
-  background: #ffffff;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+:root { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-synthesis: none; text-rendering: optimizeLegibility; }
+* { box-sizing: border-box; }
+html, body, #root { min-width: 320px; min-height: 100%; margin: 0; }
+body { min-height: 100vh; }
+button, input { font: inherit; }
+button { border: 0; cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .6; }
+.standalone-message { padding: 24px; text-align: center; }
+.app { max-width: 760px; min-height: 100vh; margin: 0 auto; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); background: var(--tg-bg-color); color: var(--tg-text-color); }
+.app h1, .app h2 { margin-top: 0; }
+.app-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.app-header h1 { margin: 0; overflow-wrap: anywhere; }
+.close-button { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 38px; height: 38px; padding: 0 !important; border-radius: 50% !important; line-height: 1; }
+.user-info { margin-bottom: 14px; }
+.user-info__toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 6px 0 !important; background: transparent !important; color: var(--tg-hint-color) !important; text-align: left; }
+.chevron { transition: transform .2s ease; }
+.chevron--up { transform: rotate(180deg); }
+.user-info__panel { margin-top: 4px; padding: 10px 14px; border-radius: 10px; background: var(--tg-secondary-bg-color); color: var(--tg-hint-color); }
+.user-info__panel p { margin: 4px 0; }
+.app section { margin-bottom: 16px; padding: 16px; border-radius: 14px; background: var(--tg-secondary-bg-color); }
+.app input { min-width: 0; padding: 10px 12px; border: 1px solid var(--tg-hint-color); border-radius: 10px; outline: none; background: var(--tg-bg-color); color: var(--tg-text-color); }
+.app input:focus { border-color: var(--tg-button-color); }
+.app button { padding: 10px 14px; border-radius: 10px; background: var(--tg-button-color); color: var(--tg-button-text-color); transition: transform .12s ease, opacity .12s ease, background-color .12s ease; -webkit-tap-highlight-color: transparent; }
+.app button:active:not(:disabled) { transform: scale(.97); }
+.button-secondary { background: transparent !important; color: var(--tg-text-color) !important; border: 1px solid var(--tg-hint-color); }
+.button-danger { background: #d93025 !important; }
+.date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.date-row label { color: var(--tg-hint-color); font-size: 14px; }
+.date-row input { flex: 1; }
+.date-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; width: 100%; margin-bottom: 14px; padding: 3px; border-radius: 13px; background: var(--tg-secondary-bg-color); }
+.date-tab { min-width: 0; padding: 9px 6px !important; overflow: hidden; background: transparent !important; color: var(--tg-hint-color) !important; white-space: nowrap; text-overflow: ellipsis; }
+.date-tab--active { background: var(--tg-button-color) !important; color: var(--tg-button-text-color) !important; }
+.date-tab--custom { display: flex; padding: 0 !important; }
+.date-tab--custom input { width: 100%; padding: 9px 4px; border: 0; background: transparent; color: inherit; text-align: center; }
+.date-tab--custom:focus-within { background: var(--tg-button-color) !important; }
+.todo-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; margin-bottom: 16px; }
+.todo-form label { display: flex; }
+.todo-form > input[type="text"], .todo-form > label { grid-column: 1 / -1; width: 100%; }
+.add-todo-button { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; padding: 0 !important; border-radius: 50% !important; line-height: 1; }
+.todo-list { display: flex; flex-direction: column; gap: 10px; margin: 0 0 20px; padding: 0; list-style: none; }
+.todo-item { display: flex; flex-direction: column; gap: 12px; padding: 14px; border: 1px solid color-mix(in srgb, var(--tg-hint-color) 18%, transparent); border-radius: 14px; background: var(--tg-secondary-bg-color); border-left: 4px solid var(--tg-button-color); }
+.todo-item--done { opacity: .7; border-left-color: #39a96b; }
+.todo-title { display: flex; align-items: center; gap: 8px; overflow-wrap: anywhere; font-size: 16px; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; }
+.todo-title .icon { flex: 0 0 auto; color: var(--tg-button-color); }
+.todo-actions, .todo-edit-row, .move-control { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.todo-actions { display: grid; grid-template-columns: repeat(3, 76px) 228px; justify-content: space-between; }
+.icon-button { display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 42px; padding: 4px !important; }
+.complete-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; width: 100%; height: 42px; background: #2e9d5b !important; color: #ffffff !important; }
+.icon { display: block; flex: 0 0 auto; }
+.todo-item--editing > input, .todo-item--editing label { width: 100%; }
+.todo-item--editing label { display: flex; flex-direction: column; gap: 6px; color: var(--tg-hint-color); }
+.todo-edit-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.move-control { margin: 0; }
+.todo-actions input { width: 145px; }
+.todo-filters { display: flex; gap: 3px; width: 100%; margin: 4px 0 16px; padding: 3px; border-radius: 11px; background: var(--tg-secondary-bg-color); }
+.filter-button { flex: 1; padding: 6px 10px !important; background: transparent !important; color: var(--tg-hint-color) !important; font-size: 13px; }
+.filter-button--active { background: var(--tg-button-color) !important; color: var(--tg-button-text-color) !important; }
+.loading-message, .empty-message { margin: 24px 0; color: var(--tg-hint-color); text-align: center; }
+.error-message { margin: 12px 0; color: #d93025; }
+.success-message { color: #18864b !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+@media (max-width: 560px) {
+  .app { padding: 16px; }
+  .todo-form { grid-template-columns: 1fr auto; }
+  .todo-form > input[type="text"], .todo-form > label, .todo-edit-row > * { width: 100%; }
+  .todo-actions { grid-template-columns: repeat(3, 44px) 132px; }
+  .todo-actions > * { width: 100%; }
+  .todo-actions, .todo-edit-row { align-items: stretch; }
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#root {
-  min-width: 320px;
-  min-height: 100%;
-  margin: 0;
-}
-
-body {
-  min-height: 100vh;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  border: 0;
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Основной контейнер MiniApp */
-
-.app {
-  min-height: 100vh;
-  padding: 20px;
-
-  background-color: var(--tg-bg-color);
-  color: var(--tg-text-color);
-}
-
-/* Заголовки и текст */
-
-.app h1,
-.app h2,
-.app h3 {
-  margin-top: 0;
-  color: var(--tg-text-color);
-}
-
-.app p {
-  color: var(--tg-text-color);
-}
-
-.app p.error {
-  color: #d93025;
-}
-
-/* Информация о пользователе */
-
-.app section {
-  margin-bottom: 20px;
-  padding: 16px;
-
-  border-radius: 12px;
-  background-color: var(--tg-secondary-bg-color);
-}
-
-/* Форма TodoForm */
-
-.app form {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.app input {
-  flex: 1;
-  min-width: 0;
-  padding: 10px 12px;
-
-  border: 1px solid var(--tg-hint-color);
-  border-radius: 10px;
-  outline: none;
-
-  background-color: var(--tg-bg-color);
-  color: var(--tg-text-color);
-}
-
-.app input::placeholder {
-  color: var(--tg-hint-color);
-}
-
-.app input:focus {
-  border-color: var(--tg-button-color);
-}
-
-/* Кнопки */
-
-.app button {
-  padding: 10px 16px;
-
-  border-radius: 10px;
-  background-color: var(--tg-button-color);
-  color: var(--tg-button-text-color);
-}
-
-.app button:hover:not(:disabled) {
-  opacity: 0.85;
-}
-
-/* Список дел */
-
-.app ul {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  margin: 0 0 20px;
-  padding: 0;
-
-  list-style: none;
-}
-
-.loading-message,
-.empty-message {
-  margin: 20px 0;
-  color: var(--tg-hint-color);
-  text-align: center;
-}
-
-.error-message {
-  margin: 12px 0;
-  color: #d93025;
-}
-
-.todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0 0 20px;
-  padding: 0;
-  list-style: none;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-
-  padding: 12px 14px;
-  border-radius: 12px;
-
-  background-color: var(--tg-secondary-bg-color);
-  color: var(--tg-text-color);
-}
-
-.todo-item span {
-  overflow-wrap: anywhere;
-}
-
-/* Адаптация для небольших экранов */
-
-@media (max-width: 480px) {
-  .app {
-    padding: 16px;
-  }
-
-  .app form {
-    flex-direction: column;
-  }
-
-  .app form button {
-    width: 100%;
-  }
-
-  .todo-item {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .todo-item button {
-    width: 100%;
-  }
-}
+/* Telegram Native: restrained surfaces, system colors and touch-friendly controls. */
+.app input { border-color: color-mix(in srgb, var(--tg-hint-color) 38%, transparent); }
+.app input::placeholder { color: var(--tg-hint-color); }
+.app input:focus-visible, .app button:focus-visible { outline: 2px solid var(--tg-button-color); outline-offset: 2px; }
+.user-info__toggle:hover, .button-secondary:hover:not(:disabled) { background: color-mix(in srgb, var(--tg-hint-color) 10%, transparent) !important; }
+.todo-item--done .todo-title { color: var(--tg-hint-color); text-decoration: line-through; text-decoration-thickness: 1px; }
+.success-message { padding: 9px 12px; border-radius: 10px; background: color-mix(in srgb, #2e9d5b 15%, transparent); }
+.error-message { padding: 9px 12px; border-radius: 10px; background: color-mix(in srgb, #d93025 12%, transparent); }
+.complete-button:hover:not(:disabled) { background: #23834b !important; }
+.button-danger:hover:not(:disabled) { background: #b92720 !important; }
